@@ -1,0 +1,28 @@
+namespace: default
+
+
+# 7am UTC = 2am EST
+# "0 7 * * *"
+schedule: "*/1 * * * *"
+
+image:
+  registry: "${{ env.REGISTRY_NAME }}.azurecr.io"
+  name: "create-slack-webhook"
+  version: "1.9"
+  imagePullSecrets: []
+secretscan:
+  max_entropy: "3.5"
+slackSecret:
+  secretName: "kfp-slack-webhook"
+  webhook: "${{ SLACK_WEBHOOK }}"
+
+# elkSecret:
+#   secretName: "elastic-creds"
+#   elkUser: "${{ secrets.ES_USER }}"
+#   elkPass: "${{ secrets.ES_PASS }}"
+
+
+# If you run the script interactively,
+# elasticsearch:
+#   host: http://elastic
+#   index: 'kubeflow-pipeline-secrets'
