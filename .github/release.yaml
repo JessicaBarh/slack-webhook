@@ -16,6 +16,7 @@ on:
     branches:
       - master
       - test
+      - main
 
 jobs:
   build-push:
