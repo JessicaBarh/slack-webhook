@@ -41,8 +41,8 @@ jobs:
     - name: build and push image
       run: |
           cd app
-          docker build -f Dockerfile -t ${{ env.REGISTRY_NAME }}.azurecr.io/kfp-slack-webhook:${{ env.TAG }} .
-          docker push ${{ env.REGISTRY_NAME }}.azurecr.io/kfp-slack-webhook:${{ env.TAG }}
+          docker build -f Dockerfile -t ${{ env.REGISTRY_NAME }}.azurecr.io/create-slack-webhook:${{ env.TAG }} .
+          docker push ${{ env.REGISTRY_NAME }}.azurecr.io/create-slack-webhook:${{ env.TAG }}
           cd -
     # Set the target Azure Kubernetes Service (AKS) cluster.
     # - uses: azure/aks-set-context@v1
@@ -68,16 +68,16 @@ jobs:
     #     run-quality-checks: false
 
     # Copy KUBECONFIG
-    - run: |
-        mkdir -p /home/runner/work/_temp/_github_home/
-        cp $KUBECONFIG /home/runner/work/_temp/_github_home/KUBECONFIG
+    # - run: |
+    #     mkdir -p /home/runner/work/_temp/_github_home/
+    #     cp $KUBECONFIG /home/runner/work/_temp/_github_home/KUBECONFIG
 
     # Deploy Helm chart
     - uses: 'statcan/actions/helm@master'
       env:
         KUBECONFIG: /github/home/KUBECONFIG
       with:
-        release: 'kfp-slack-webhook'
+        release: 'create-slack-webhook'
         namespace: "${{ env.NAMESPACE }}"
         chart: './chart'
         token: '${{ github.token }}'
